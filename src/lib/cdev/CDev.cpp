@@ -297,7 +297,7 @@ CDev::poll(file_t *filep, px4_pollfd_struct_t *fds, bool setup)
 #else
 
 			if (fds->revents != 0) {
-				px4_sem_post(fds->sem);
+				::poll_notify(&fds, 1, fds->revents); // NuttX poll refactor: pollfd::sem -> arg + global poll_notify()
 			}
 
 #endif
@@ -354,7 +354,7 @@ CDev::poll_notify_one(px4_pollfd_struct_t *fds, px4_pollevent_t events)
 #else
 
 	if (fds->revents != 0) {
-		px4_sem_post(fds->sem);
+		::poll_notify(&fds, 1, fds->revents); // NuttX poll refactor: pollfd::sem -> arg + global poll_notify()
 	}
 
 #endif
