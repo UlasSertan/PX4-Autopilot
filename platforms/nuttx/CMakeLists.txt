@@ -381,6 +381,12 @@ else()
 		-Wl,--warn-common
 		-Wl,--gc-sections
 
+		# With the out-of-tree NuttX build everything (including the arch head
+		# object with the entry vector) lives in archives; seed the archive
+		# extraction explicitly or --gc-sections reduces the ELF to nothing.
+		-Wl,--undefined=_vector_start
+		-Wl,--undefined=nsh_main
+
 		# Single spanning link group covering the NuttX archives, every PX4
 		# module library AND the platform/arch/board libraries pulled in
 		# transitively via nuttx_arch's INTERFACE dependencies. Rationale: with a

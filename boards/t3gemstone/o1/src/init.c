@@ -52,7 +52,9 @@
 
 #include <errno.h>
 #include <syslog.h>
-#include <nuttx/serial/uart_rpmsg_raw.h>
+#ifdef CONFIG_RPMSG_UART_RAW
+#  include <nuttx/serial/uart_rpmsg_raw.h>
+#endif
 
 #include <nuttx/board.h>
 
